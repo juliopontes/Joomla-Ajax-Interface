@@ -93,7 +93,14 @@ if ($input->get('plugin'))
 switch ($format)
 {
 	case 'json':
-		echo json_encode($results);
+		$prefix = '';
+		$sufix = '';
+		$callback = $input->getCmd('callback','');
+		if (!empty($callback)) {
+		$prefix = '(';
+		$sufix = ')';
+		}
+		echo $callback.$prefix.json_encode($results).$sufix;
 		$app->close();
 		break;
 	case 'debug':
